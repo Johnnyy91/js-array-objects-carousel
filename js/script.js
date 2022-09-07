@@ -11,7 +11,7 @@ dopo 5 secondi la slide avanza automaticamente
 
 // settings
 const NUM_IMAGES = 5;
-const CHANGE_IMAGE_DELAY = 5;
+const CHANGE_IMAGE_DELAY = 3;
 
 //const images = createImageArray(NUM_IMAGES);
 //console.log(images);
@@ -53,11 +53,29 @@ let activeIndex = 0;
 buildCarousel(images, activeIndex);
 
 let idInterval = setInterval(moveCarouselForward, CHANGE_IMAGE_DELAY * 1000);
-let idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
+
+//let idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
 
 
 const leftArrowButton = document.getElementById('left-arrow');
 const rightArrowButton = document.getElementById('right-arrow');
+
+//BONUS
+const buttonInverted =document.getElementById('buttonInverted');
+buttonInverted.addEventListener('click',moveCarouselInverted);
+function moveCarouselInverted(){
+    clearInterval(idInterval)
+    let idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);;
+    function moveCarouselPrevious() {
+        clearInterval(idInterval2)
+        activeIndex = activeIndex > 0 ? activeIndex - 1 : images.length - 1;
+        buildCarousel(images, activeIndex);
+        idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
+    }
+}
+//END BONUS
+
+
 
 leftArrowButton.addEventListener('click', moveCarouselPrevious);
 rightArrowButton.addEventListener('click', moveCarouselForward);
@@ -73,11 +91,11 @@ function moveCarouselForward(){
 }
 
 function moveCarouselPrevious(){
-     clearInterval(idInterval2)
+     clearInterval(idInterval)
     // se l'indice è in prima posizione si valorizza all'ultima posizione dell'array
     activeIndex = activeIndex > 0 ? activeIndex -1 : images.length -1 ;
     buildCarousel(images, activeIndex);
-    idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
+    idInterval = setInterval(moveCarouselForward, CHANGE_IMAGE_DELAY * 1000);
 }
 
 
@@ -112,8 +130,3 @@ function createImageArray(numImages){
 }
 */
 
-
-/*
-Bonus:
-E se volessi un bottone per invertire la "direzione" del carosello nell'avanzamento automatico?
-*/
