@@ -11,7 +11,7 @@ dopo 5 secondi la slide avanza automaticamente
 
 // settings
 const NUM_IMAGES = 5;
-const CHANGE_IMAGE_DELAY = 3;
+const CHANGE_IMAGE_DELAY = 4;
 
 //const images = createImageArray(NUM_IMAGES);
 //console.log(images);
@@ -65,14 +65,8 @@ const buttonInverted =document.getElementById('buttonInverted');
 buttonInverted.addEventListener('click',moveCarouselInverted);
 function moveCarouselInverted(){
     clearInterval(idInterval)
-    let idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);;
-    function moveCarouselPrevious() {
-        clearInterval(idInterval2)
-        activeIndex = activeIndex > 0 ? activeIndex - 1 : images.length - 1;
-        buildCarousel(images, activeIndex);
-        idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
+    let idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
     }
-}
 //END BONUS
 
 
